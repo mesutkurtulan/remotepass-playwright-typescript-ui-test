@@ -24,7 +24,7 @@ jobs:
       - name: Run tests in Docker
         run: |
           docker run --rm \
-            -e BASE_URL=https://fakerestapi.azurewebsites.net \
+            -e BASE_URL=https://www.remotepass.com \
             -v "$(pwd)/playwright-report:/app/playwright-report" \
             -v "$(pwd)/allure-results:/app/allure-results" \
             remotepass-ui-tests:latest
