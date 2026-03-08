@@ -44,7 +44,7 @@ This framework was intentionally built to demonstrate:
 ## Project Structure
 
 ```
-bookstore-api-tests/
+remotepass-ui-tests/
 ├── .github/workflows/        # CI pipeline
 ├── src/
 │   ├── features/
@@ -133,7 +133,7 @@ npm run report:allure
 Build image:
 
 ```bash
-docker build -t bookstore-api-tests:latest .
+docker build -t remotepass-ui-tests:latest .
 ```
 
 Run tests:
@@ -143,7 +143,7 @@ docker run --rm \
   -e BASE_URL=https://fakerestapi.azurewebsites.net \
   -v "$(pwd)/playwright-report:/app/playwright-report" \
   -v "$(pwd)/allure-results:/app/allure-results" \
-  bookstore-api-tests:latest
+  remotepass-ui-tests:latest
 ```
 
 View reports:
