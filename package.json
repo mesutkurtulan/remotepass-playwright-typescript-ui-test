@@ -31,9 +31,11 @@
     "prettier": "^3.8.1"
   },
   "dependencies": {
-    "fsevents": "^2.3.2",
     "playwright": "^1.58.2",
     "playwright-core": "^1.58.2",
     "undici-types": "^7.18.2"
+  },
+  "optionalDependencies": {
+    "fsevents": "^2.3.3"
   }
 }
