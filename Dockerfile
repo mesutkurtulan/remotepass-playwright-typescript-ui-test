@@ -8,8 +8,10 @@ RUN npm ci
 
 COPY . .
 
-ENV CI=true
 ENV PLAYWRIGHT_BROWSERS_PATH=0
+ENV PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
+
+ENV CI=true
 
 ENTRYPOINT ["npm", "run"]
 CMD ["test:ci"]
