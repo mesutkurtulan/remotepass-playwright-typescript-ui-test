@@ -1,5 +1,4 @@
-# Stage 1: Builder
-FROM node:20-slim AS builder
+FROM mcr.microsoft.com/playwright:v1.50.0-noble
 
 WORKDIR /app
 
@@ -9,19 +8,8 @@ RUN npm ci
 
 COPY . .
 
-ENV PLAYWRIGHT_BROWSERS_PATH=/ms-playwright
-RUN npx playwright install --with-deps chromium
-
-# Stage 2: Final
-FROM node:20-slim
-
-WORKDIR /app
-
-COPY --from=builder /app /app
-COPY --from=builder /ms-playwright /ms-playwright
-
 ENV CI=true
-ENV PLAYWRIGHT_BROWSERS_PATH=/ms-playwright
+ENV PLAYWRIGHT_BROWSERS_PATH=0
 
 ENTRYPOINT ["npm", "run"]
 CMD ["test:ci"]
