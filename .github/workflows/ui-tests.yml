@@ -21,12 +21,17 @@ jobs:
       - name: Build Docker image
         run: docker build -t remotepass-ui-tests:latest .
 
+      - name: Create report directories
+        run: |
+          mkdir -p playwright-report
+          mkdir -p allure-results
+
       - name: Run tests in Docker
         run: |
           docker run --rm \
             -e BASE_URL=https://www.remotepass.com \
-            -v "$(pwd)/playwright-report:/app/playwright-report" \
-            -v "$(pwd)/allure-results:/app/allure-results" \
+            -v "${{ github.workspace }}/playwright-report:/app/playwright-report" \
+            -v "${{ github.workspace }}/allure-results:/app/allure-results" \
             remotepass-ui-tests:latest
 
       - name: Install Allure CLI
@@ -35,7 +40,12 @@ jobs:
 
       - name: Generate Allure Report
         if: always()
-        run: allure generate allure-results --clean -o allure-report
+        run: |
+          if [ -d "allure-results" ] && [ "$(ls -A allure-results)" ]; then
+            allure generate allure-results --clean -o allure-report
+          else
+            echo "No Allure results found"
+          fi
 
       - name: Prepare GitHub Pages content
         if: always()

@@ -4,6 +4,7 @@ FROM node:20-slim AS builder
 WORKDIR /app
 
 COPY package*.json ./
+ENV HUSKY_SKIP_INSTALL=1
 RUN npm ci
 
 COPY . .
@@ -17,7 +18,7 @@ FROM node:20-slim
 WORKDIR /app
 
 COPY --from=builder /app /app
-COPY --from=builder /root/.cache/ms-playwright /root/.cache/ms-playwright
+COPY --from=builder /ms-playwright /ms-playwright
 
 ENV CI=true
 ENV PLAYWRIGHT_BROWSERS_PATH=/ms-playwright
